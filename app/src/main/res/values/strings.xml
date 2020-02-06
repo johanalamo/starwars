@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">StarWars Films List</string>
+
+    <string name="network_error">Network Error.</string>
+    <string name="ok">Ok</string>
+    <string name="by">By %1$s</string>
+    <string name="releaseDate">Release date: %1$s</string>
+    <string name="birthYear">Birth Year: %1$s</string>
+    <string name="gender">Gender: %1$s</string>
+</resources>
