@@ -53,26 +53,26 @@ class PeopleActivity : AppCompatActivity() {
         showLoading()
         var total:Int = film?.characters?.size ?: 0
         var charged = 0
-
+        var isLast:Boolean
         var list:List<People> = mutableListOf()
 
         for (url in film?.characters!!) {
             var id = getId(url)
 
             viewModel.getPeople(id).observe(this, Observer { people ->
-                showLoading()
                 charged++
-                var isLast:Boolean = (charged>=total)
+                isLast = (charged>=total)
                 if (people == null) {
-                    Log.d(TAG, "getPeople: people IS NULL")
+                    Log.d(TAG, "getPeople: people IS NULL" + ( if (isLast) " (last)" else "" ))
                 } else {
-                    Log.d(TAG, "getPeople: people.name -> " + (people.name ?: "NAME IS NULL") + ( if (isLast) " (last)" else "" ))
+                    Log.d(TAG, "getPeople: people.name -> " + charged.toString() + ". " + (people.name ?: "NAME IS NULL") + ( if (isLast) " (last)" else "" ))
                     list += people
-                    if (isLast) {
-                        adapter.setPeople(list)
-                        hideLoading()
-                    }
                 }
+                if (isLast) {
+                    adapter.setPeople(list)
+                    hideLoading()
+                }
+
             })
         }
     }
