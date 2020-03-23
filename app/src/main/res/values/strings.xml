@@ -3,8 +3,8 @@
 
     <string name="network_error">Network Error.</string>
     <string name="ok">Ok</string>
-    <string name="by">By %1$s</string>
-    <string name="releaseDate">Release date: %1$s</string>
+    <string name="by">By</string>
+    <string name="releaseDate">Release date</string>
     <string name="birthYear">Birth Year: %1$s</string>
     <string name="gender">Gender: %1$s</string>
 </resources>
