@@ -3,24 +3,29 @@ package com.alamo.starwars.view.adapters
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.alamo.starwars.R
 import com.alamo.starwars.data.model.People
+import com.alamo.starwars.databinding.ItemPeopleBinding
 import kotlinx.android.synthetic.main.item_people.view.*
 
 class PeopleListAdapter(
     private val people: MutableList<People>
 ) : RecyclerView.Adapter<PeopleListAdapter.PeopleHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PeopleHolder {
-        val view = LayoutInflater.from(parent.context)
-            .inflate(R.layout.item_people, parent, false)
-        return PeopleHolder(view)
+        val layoutInflater = LayoutInflater.from(parent.context)
+        val binding = DataBindingUtil.inflate<ItemPeopleBinding>(layoutInflater,
+            R.layout.item_people, parent, false)
+        return PeopleHolder(binding)
     }
 
     override fun getItemCount(): Int = people.size
 
     override fun onBindViewHolder(holder: PeopleHolder, position: Int) {
-        holder.bind(people[position], position)
+        val person = people[position]
+        holder.binding.person = person
+        holder.binding.position = (position + 1).toString()
     }
 
     fun setPeople(peopleList: List<People>) {
@@ -29,11 +34,5 @@ class PeopleListAdapter(
         notifyDataSetChanged()
     }
 
-    inner class PeopleHolder(val view: View) : RecyclerView.ViewHolder(view) {
-        fun bind(people: People, position: Int) = with(view) {
-            nameTextView.text = (position + 1).toString() + ". " + people.name
-            birthYearTextView.text = context.getString(R.string.birthYear, people.birthYear)
-            genderTextView.text = context.getString(R.string.gender, people.gender)
-        }
-    }
+    inner class PeopleHolder(val binding:ItemPeopleBinding): RecyclerView.ViewHolder(binding.root)
 }
